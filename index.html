@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Stash</title>
+  <meta name="theme-color" content="#121316">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Stash">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="brand">Stash</div>
+      <div class="version" id="version">v0.1.0</div>
+    </header>
+
+    <!-- Нет цели -->
+    <section class="card empty" id="view-empty" hidden>
+      <div class="empty-icon" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="44" height="44" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+          <circle cx="32" cy="32" r="22" opacity=".35"/>
+          <path d="M32 10a22 22 0 0 1 22 22"/>
+        </svg>
+      </div>
+      <h1>Пока нет цели</h1>
+      <p>Создайте цель накоплений, и копилка начнёт работать.</p>
+      <button class="btn btn-accent" id="btn-create" type="button">Создать цель</button>
+    </section>
+
+    <!-- Есть цель -->
+    <section class="card goal" id="view-goal" hidden>
+      <div class="goal-name" id="goal-name"></div>
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 220 220" aria-hidden="true">
+          <circle class="ring-bg" cx="110" cy="110" r="96"/>
+          <circle class="ring-fg" id="ring-fg" cx="110" cy="110" r="96"/>
+        </svg>
+        <div class="ring-center">
+          <div class="percent" id="percent">0%</div>
+          <div class="done-tag" id="done-tag" hidden>Цель достигнута</div>
+        </div>
+      </div>
+      <div class="saved" id="saved">0 ₽</div>
+      <div class="of" id="of">из 0 ₽</div>
+      <div class="actions">
+        <button class="btn btn-accent" id="btn-add" type="button">Внести</button>
+        <button class="btn btn-soft" id="btn-take" type="button">Снять</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Окно (создание цели / внести / снять) -->
+  <div class="overlay" id="overlay" hidden>
+    <form class="sheet" id="sheet" autocomplete="off" novalidate>
+      <div class="sheet-title" id="sheet-title"></div>
+      <label class="field" id="field-name">
+        <span>Название цели</span>
+        <input id="in-name" type="text" maxlength="30" placeholder="Например, отпуск">
+      </label>
+      <label class="field">
+        <span id="amount-label">Сумма</span>
+        <input id="in-amount" type="text" inputmode="decimal" placeholder="0">
+      </label>
+      <div class="error" id="error" hidden></div>
+      <div class="sheet-actions">
+        <button class="btn btn-accent" id="sheet-ok" type="submit">Готово</button>
+        <button class="btn btn-soft" id="sheet-cancel" type="button">Отмена</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
