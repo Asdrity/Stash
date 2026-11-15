@@ -17,11 +17,18 @@
 <body>
   <main class="app">
     <header class="top">
-      <div class="brand">Stash</div>
-      <div class="version" id="version">v0.1.0</div>
+      <div class="brand-row">
+        <div class="brand">Stash</div>
+        <div class="version" id="version">v0.2.0</div>
+      </div>
+      <button class="icon-btn icon-btn-accent" id="btn-plus" type="button" aria-label="Создать цель">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+      </button>
     </header>
 
-    <!-- Нет цели -->
+    <!-- Нет целей -->
     <section class="card empty" id="view-empty" hidden>
       <div class="empty-icon" aria-hidden="true">
         <svg viewBox="0 0 64 64" width="44" height="44" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
@@ -29,14 +36,32 @@
           <path d="M32 10a22 22 0 0 1 22 22"/>
         </svg>
       </div>
-      <h1>Пока нет цели</h1>
-      <p>Создайте цель накоплений, и копилка начнёт работать.</p>
+      <h1>Пока нет целей</h1>
+      <p>Создайте первую цель накоплений, и копилка начнёт работать.</p>
       <button class="btn btn-accent" id="btn-create" type="button">Создать цель</button>
     </section>
 
-    <!-- Есть цель -->
+    <!-- Список целей -->
+    <section class="list" id="view-list" hidden></section>
+
+    <!-- Одна цель -->
     <section class="card goal" id="view-goal" hidden>
-      <div class="goal-name" id="goal-name"></div>
+      <div class="goal-head">
+        <button class="icon-btn icon-btn-soft" id="btn-back" type="button" aria-label="Назад к списку">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 5l-7 7 7 7"/>
+          </svg>
+        </button>
+        <div class="goal-name-wrap"><div class="goal-name" id="goal-name"></div></div>
+        <button class="icon-btn icon-btn-soft icon-btn-danger" id="btn-delete" type="button" aria-label="Удалить цель">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7h16"/>
+            <path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/>
+            <path d="M6.5 7l.8 11.2A2 2 0 0 0 9.3 20h5.4a2 2 0 0 0 2-1.8L17.5 7"/>
+            <path d="M10 11v5M14 11v5"/>
+          </svg>
+        </button>
+      </div>
       <div class="ring-wrap">
         <svg class="ring" viewBox="0 0 220 220" aria-hidden="true">
           <circle class="ring-bg" cx="110" cy="110" r="96"/>
@@ -56,15 +81,16 @@
     </section>
   </main>
 
-  <!-- Окно (создание цели / внести / снять) -->
+  <!-- Окно (создание цели / внести / снять / удалить) -->
   <div class="overlay" id="overlay" hidden>
     <form class="sheet" id="sheet" autocomplete="off" novalidate>
       <div class="sheet-title" id="sheet-title"></div>
+      <div class="sheet-text" id="sheet-text" hidden></div>
       <label class="field" id="field-name">
         <span>Название цели</span>
         <input id="in-name" type="text" maxlength="30" placeholder="Например, отпуск">
       </label>
-      <label class="field">
+      <label class="field" id="field-amount">
         <span id="amount-label">Сумма</span>
         <input id="in-amount" type="text" inputmode="decimal" placeholder="0">
       </label>
