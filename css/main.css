@@ -13,6 +13,7 @@
   --ease-in: cubic-bezier(.5, 0, .75, 0);
   --r-card: 40px;
   --r-sheet: 40px;
+  --shadow: 0 10px 34px rgba(0, 0, 0, .38);
 }
 :root[data-theme="light"] {
   --bg: #f1f2f5;
@@ -24,6 +25,7 @@
   --accent-2: #1b82d0;
   --on-accent: #ffffff;
   --danger: #e04848;
+  --shadow: 0 10px 30px rgba(30, 40, 60, .16);
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -42,7 +44,7 @@ body {
   max-width: 460px;
   min-height: 100%;
   margin: 0 auto;
-  padding: calc(env(safe-area-inset-top) + 18px) 18px calc(env(safe-area-inset-bottom) + 24px);
+  padding: calc(env(safe-area-inset-top) + 18px) 18px calc(env(safe-area-inset-bottom) + 132px);
   display: flex;
   flex-direction: column;
 }
@@ -263,6 +265,84 @@ body {
 }
 
 .sheet-actions { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 6px; }
+
+/* Разделы «Стратегии» и «Настройки» */
+.panel-title { margin: 0; padding: 0 10px 14px; font-size: 24px; font-weight: 700; letter-spacing: -.4px; }
+.rows { display: flex; flex-direction: column; gap: 10px; }
+.row {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  background: var(--card);
+  border-radius: 30px;
+  padding: 18px 24px;
+  animation: card-in .8s var(--ease-out) both;
+  animation-delay: var(--d, 0s);
+}
+.row-main { min-width: 0; }
+.row-title { font-size: 17px; font-weight: 600; }
+.row-sub { margin-top: 3px; font-size: 14px; color: var(--muted); line-height: 1.35; }
+.row-end { flex: none; display: flex; align-items: center; }
+.row-value { font-size: 16px; font-weight: 600; color: var(--muted); }
+.icon-preview { display: block; width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+.soon-tag {
+  font-size: 12px; font-weight: 600;
+  color: var(--muted);
+  background: var(--card-2);
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.row-col { flex-direction: column; align-items: stretch; gap: 14px; }
+.seg {
+  display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: var(--card-2);
+}
+.seg span {
+  height: 42px;
+  border-radius: 999px;
+  display: grid; place-items: center;
+  font-size: 14px; font-weight: 600;
+  color: var(--muted);
+}
+.seg span.on { background: var(--accent); color: var(--on-accent); }
+
+/* Нижнее меню — овал, активный раздел в кружке */
+.tabbar {
+  position: fixed; z-index: 5;
+  left: 0; right: 0; margin: 0 auto;
+  bottom: calc(env(safe-area-inset-bottom) + 14px);
+  width: max-content;
+  display: flex; gap: 8px;
+  padding: 8px;
+  border-radius: 999px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  --i: 0;
+  animation: bar-in .9s var(--ease-out) both;
+}
+@keyframes bar-in { from { opacity: 0; transform: translateY(40px) scale(.94); } to { opacity: 1; transform: none; } }
+.tab-dot {
+  position: absolute; top: 8px; left: 8px;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateX(calc(var(--i) * 88px));
+  transition: transform .7s cubic-bezier(.34, 1.25, .5, 1);
+}
+.tab {
+  position: relative; z-index: 1;
+  appearance: none; border: 0; cursor: pointer;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  font: inherit; font-size: 11px; font-weight: 600;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  transition: color .5s var(--ease-out), transform .4s var(--ease-out);
+}
+.tab:active { transform: scale(.92); }
+.tab.active { color: var(--on-accent); }
 
 @media (min-width: 560px) {
   .overlay { align-items: center; }

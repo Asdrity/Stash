@@ -19,7 +19,7 @@
     <header class="top">
       <div class="brand-row">
         <div class="brand">Stash</div>
-        <div class="version" id="version">v0.2.0</div>
+        <div class="version" id="version">v0.3.0</div>
       </div>
       <button class="icon-btn icon-btn-accent" id="btn-plus" type="button" aria-label="Создать цель">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
@@ -79,7 +79,140 @@
         <button class="btn btn-soft" id="btn-take" type="button">Снять</button>
       </div>
     </section>
+
+    <!-- Стратегии (пока только отображение) -->
+    <section class="panel" id="view-strategies" hidden>
+      <h2 class="panel-title">Стратегии</h2>
+      <div class="rows">
+      <div class="row" style="--d:0.00s">
+        <div class="row-main">
+          <div class="row-title">Ни дня без монетки</div>
+          <div class="row-sub">Каждый день</div>
+        </div>
+        
+      </div>
+      <div class="row" style="--d:0.05s">
+        <div class="row-main">
+          <div class="row-title">Без суеты</div>
+          <div class="row-sub">Раз в неделю</div>
+        </div>
+        
+      </div>
+      <div class="row" style="--d:0.10s">
+        <div class="row-main">
+          <div class="row-title">Для занятых</div>
+          <div class="row-sub">Раз в месяц</div>
+        </div>
+        
+      </div>
+      <div class="row" style="--d:0.15s">
+        <div class="row-main">
+          <div class="row-title">Прогулка</div>
+          <div class="row-sub">5% от цели каждый месяц</div>
+        </div>
+        
+      </div>
+      <div class="row" style="--d:0.20s">
+        <div class="row-main">
+          <div class="row-title">Пробежка</div>
+          <div class="row-sub">10% от цели каждый месяц</div>
+        </div>
+        
+      </div>
+      <div class="row" style="--d:0.25s">
+        <div class="row-main">
+          <div class="row-title">Спринт</div>
+          <div class="row-sub">20% от цели каждый месяц</div>
+        </div>
+        
+      </div>
+      <div class="row" style="--d:0.30s">
+        <div class="row-main">
+          <div class="row-title">Тыщенка в неделю</div>
+          <div class="row-sub">1000 ₽ в неделю</div>
+        </div>
+        
+      </div>
+      <div class="row" style="--d:0.35s">
+        <div class="row-main">
+          <div class="row-title">Снежный ком</div>
+          <div class="row-sub">Каждую неделю на 100 ₽ больше</div>
+        </div>
+        
+      </div>
+      <div class="row" style="--d:0.40s">
+        <div class="row-main">
+          <div class="row-title">В день зарплаты</div>
+          <div class="row-sub">В дни выплат</div>
+        </div>
+        
+      </div>
+      <div class="row" style="--d:0.45s">
+        <div class="row-main">
+          <div class="row-title">Своё правило</div>
+          <div class="row-sub">Свой ритм и своя сумма</div>
+        </div>
+        <div class="row-end"><span class="soon-tag">В разработке</span></div>
+      </div>
+      </div>
+    </section>
+
+    <!-- Настройки (пока только отображение) -->
+    <section class="panel" id="view-settings" hidden>
+      <h2 class="panel-title">Настройки</h2>
+      <div class="rows">
+        <div class="row" style="--d:0s">
+          <div class="row-main">
+            <div class="row-title">Напоминания</div>
+            <div class="row-sub">Зависят от выбранной стратегии</div>
+          </div>
+        </div>
+        <div class="row" style="--d:.05s">
+          <div class="row-main"><div class="row-title">Валюта</div></div>
+          <div class="row-end"><span class="row-value">₽ Рубль</span></div>
+        </div>
+        <div class="row" style="--d:.10s">
+          <div class="row-main"><div class="row-title">Иконка приложения</div></div>
+          <div class="row-end"><img class="icon-preview" src="icons/icon-192.png" alt="" width="44" height="44"></div>
+        </div>
+        <div class="row" style="--d:.15s">
+          <div class="row-main"><div class="row-title">Язык</div><div class="row-sub">Русский</div></div>
+          <div class="row-end"><span class="soon-tag">В разработке</span></div>
+        </div>
+        <div class="row row-col" style="--d:.20s">
+          <div class="row-title">Тема</div>
+          <div class="seg">
+            <span>Чёрная</span>
+            <span>Белая</span>
+            <span class="on">Как в системе</span>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- Нижнее меню -->
+  <nav class="tabbar" id="tabbar" aria-label="Разделы">
+    <span class="tab-dot" aria-hidden="true"></span>
+    <button class="tab active" type="button" data-tab="list" aria-label="Список">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 7h11M9 12h11M9 17h11"/><path d="M4.5 7h.01M4.5 12h.01M4.5 17h.01" stroke-width="3"/>
+      </svg>
+      <span>Список</span>
+    </button>
+    <button class="tab" type="button" data-tab="strategies" aria-label="Стратегии">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3.5 17l5.5-5.5 4 4 7-8"/><path d="M15 7.5h5.5V13"/>
+      </svg>
+      <span>Стратегии</span>
+    </button>
+    <button class="tab" type="button" data-tab="settings" aria-label="Настройки">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 8h9M17 8h3M4 16h3M11 16h9"/><circle cx="15" cy="8" r="2"/><circle cx="9" cy="16" r="2"/>
+      </svg>
+      <span>Настройки</span>
+    </button>
+  </nav>
 
   <!-- Окно (создание цели / внести / снять / удалить) -->
   <div class="overlay" id="overlay" hidden>

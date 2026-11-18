@@ -1,8 +1,8 @@
-// Stash v0.2.0 — копилка: список целей, у каждой кнопки «Внести» / «Снять», удаление цели.
+// Stash v0.3.0 — копилка: список целей, нижнее меню (Список / Стратегии / Настройки).
 (function () {
   'use strict';
 
-  var VERSION = '0.2.0';
+  var VERSION = '0.3.0';
   var KEY = 'stash.data';
   var CIRC = 603.19; // длина окружности кольца (2·π·96)
 
@@ -37,6 +37,8 @@
   save();
 
   var currentId = null; // открытая цель (null — показан список)
+  var tab = 'list';     // раздел: 'list' | 'strategies' | 'settings'
+  var TABS = ['list', 'strategies', 'settings'];
 
   // ---------- Помощники ----------
   function $(id) { return document.getElementById(id); }
@@ -118,16 +120,38 @@
   }
 
   function render() {
-    var g = currentId ? findGoal(currentId) : null;
-    if (currentId && !g) currentId = null;
-
+    if (currentId && !findGoal(currentId)) currentId = null;
+    var onList = tab === 'list';
+    var g = onList && currentId ? findGoal(currentId) : null;
     var hasGoals = data.goals.length > 0;
-    $('view-goal').hidden = !g;
-    $('view-empty').hidden = !!g || hasGoals;
-    $('view-list').hidden = !!g || !hasGoals;
 
+    $('view-goal').hidden = !g;
+    $('view-empty').hidden = !onList || !!g || hasGoals;
+    $('view-list').hidden = !onList || !!g || !hasGoals;
+    $('view-strategies').hidden = tab !== 'strategies';
+    $('view-settings').hidden = tab !== 'settings';
+    $('btn-plus').style.visibility = onList ? '' : 'hidden';
+
+    renderTabs();
     if (g) renderGoal(g);
-    else if (hasGoals) renderList();
+    else if (onList && hasGoals) renderList();
+  }
+
+  function renderTabs() {
+    $('tabbar').style.setProperty('--i', String(TABS.indexOf(tab)));
+    var btns = document.querySelectorAll('.tab');
+    for (var i = 0; i < btns.length; i++) {
+      var on = btns[i].getAttribute('data-tab') === tab;
+      btns[i].classList.toggle('active', on);
+      btns[i].setAttribute('aria-selected', on ? 'true' : 'false');
+    }
+  }
+
+  function setTab(name) {
+    if (name === 'list' && tab === 'list' && currentId) { backToList(); return; }
+    if (name === tab) return;
+    tab = name;
+    render();
   }
 
   function openGoal(id) {
@@ -250,6 +274,10 @@
   $('btn-plus').addEventListener('click', function () { openSheet('create'); });
   $('btn-create').addEventListener('click', function () { openSheet('create'); });
   $('btn-back').addEventListener('click', backToList);
+  var tabBtns = document.querySelectorAll('.tab');
+  for (var ti = 0; ti < tabBtns.length; ti++) {
+    tabBtns[ti].addEventListener('click', function () { setTab(this.getAttribute('data-tab')); });
+  }
   $('btn-delete').addEventListener('click', function () { openSheet('delete'); });
   $('btn-add').addEventListener('click', function () { openSheet('add'); });
   $('btn-take').addEventListener('click', function () { openSheet('take'); });
