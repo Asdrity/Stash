@@ -1,8 +1,8 @@
-// Stash v0.3.0 — копилка: список целей, нижнее меню (Список / Стратегии / Настройки).
+// Stash v0.3.1 — копилка: список целей, нижнее меню (Список / Стратегии / Настройки).
 (function () {
   'use strict';
 
-  var VERSION = '0.3.0';
+  var VERSION = '0.3.1';
   var KEY = 'stash.data';
   var CIRC = 603.19; // длина окружности кольца (2·π·96)
 
@@ -138,6 +138,10 @@
   }
 
   function renderTabs() {
+    // первая вкладка: «Цель», пока открыта цель, иначе «Цели»
+    var label = tab === 'list' && currentId && findGoal(currentId) ? 'Цель' : 'Цели';
+    $('tab-goals-label').textContent = label;
+    document.querySelector('.tab[data-tab="list"]').setAttribute('aria-label', label);
     $('tabbar').style.setProperty('--i', String(TABS.indexOf(tab)));
     var btns = document.querySelectorAll('.tab');
     for (var i = 0; i < btns.length; i++) {
@@ -150,7 +154,9 @@
   function setTab(name) {
     if (name === 'list' && tab === 'list' && currentId) { backToList(); return; }
     if (name === tab) return;
+    if (tab === 'list') currentId = null; // уходя из «Целей», возвращаемся потом к списку
     tab = name;
+    $('scroll').scrollTop = 0;
     render();
   }
 

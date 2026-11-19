@@ -1,5 +1,5 @@
 // Stash service worker. При каждом релизе меняйте CACHE (версия приложения).
-const CACHE = 'stash-v0.3.0';
+const CACHE = 'stash-v0.3.1';
 const ASSETS = [
   './',
   './index.html',
