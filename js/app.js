@@ -1,8 +1,8 @@
-// Stash v0.4.0 — копилка: цели, стратегии, настройки (тема, валюта, иконка, язык).
+// Stash v0.4.1 — копилка: цели, стратегии, настройки (тема, валюта, иконка, язык).
 (function () {
   'use strict';
 
-  var VERSION = '0.4.0';
+  var VERSION = '0.4.1';
   var KEY = 'stash.data';          // цели
   var SKEY = 'stash.settings';     // настройки: { theme, currency, lang, icon }
   var CIRC = 603.19;               // длина окружности кольца (2·π·96)
