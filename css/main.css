@@ -1,5 +1,6 @@
 /* Stash — основной стиль. Всё круглое: поля, карточки, кнопки. */
 :root {
+  color-scheme: dark;
   --bg: #121316;
   --card: #1c1d21;
   --card-2: #26282d;
@@ -22,6 +23,7 @@
   --bar-active: rgba(8, 10, 14, .58);
 }
 :root[data-theme="light"] {
+  color-scheme: light;
   --bg: #f1f2f5;
   --card: #ffffff;
   --card-2: #eceef2;
@@ -132,7 +134,7 @@ body {
   background: var(--card);
   color: var(--text);
   font: inherit;
-  text-align: left;
+  text-align: start;
   padding: 24px 28px;
   border-radius: 34px;
   animation: card-in .8s var(--ease-out) both;
@@ -151,6 +153,7 @@ body {
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  unicode-bidi: isolate;
 }
 
 /* Цель */
@@ -332,19 +335,95 @@ body {
 }
 .row-col { flex-direction: column; align-items: stretch; gap: 14px; }
 .seg {
-  display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 6px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px;
   padding: 6px;
   border-radius: 999px;
   background: var(--card-2);
 }
-.seg span {
-  height: 42px;
+.seg button {
+  appearance: none; border: 0; cursor: pointer;
+  height: 42px; padding: 0 6px;
   border-radius: 999px;
   display: grid; place-items: center;
-  font-size: 14px; font-weight: 600;
+  background: transparent;
+  font: inherit; font-size: 13.5px; font-weight: 600; line-height: 1.15;
   color: var(--muted);
+  transition: background .5s var(--ease-out), color .5s var(--ease-out), transform .4s var(--ease-out);
 }
-.seg span.on { background: var(--accent); color: var(--on-accent); }
+.seg button:active { transform: scale(.96); }
+.seg button.on { background: var(--accent); color: var(--on-accent); }
+
+/* Строки настроек, открывающие выбор */
+.row-btn {
+  appearance: none; border: 0; cursor: pointer;
+  width: 100%;
+  font: inherit; color: var(--text); text-align: start;
+  transition: transform .4s var(--ease-out);
+}
+.row-btn:active { transform: scale(.98); }
+.rows.static .row-card { animation: none; }
+.rows .row-end { gap: 8px; }
+.rows .row-value { unicode-bidi: isolate; }
+.chev { flex: none; color: var(--muted); }
+
+/* Окно выбора: валюта, язык, иконка */
+.sheet-tall { display: flex; flex-direction: column; max-height: min(84vh, 720px); }
+.pick-search { margin-bottom: 12px; }
+.pick-search input { font-size: 17px; }
+.pick-scroll {
+  position: relative;
+  flex: 1; min-height: 0;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  border-radius: 28px;
+}
+.pick-scroll .block { background: var(--card-2); animation: none; }
+.pick-row {
+  appearance: none; border: 0; cursor: pointer;
+  width: 100%;
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--line);
+  background: none; color: var(--text);
+  font: inherit; text-align: start;
+}
+.pick-row:first-child { border-top: 0; }
+.pick-row:active { background: var(--line); }
+.pick-badge {
+  flex: none;
+  min-width: 44px; height: 44px; padding: 0 10px;
+  border-radius: 999px;
+  display: grid; place-items: center;
+  background: var(--card);
+  font-size: 15px; font-weight: 700; color: var(--accent);
+  direction: ltr;
+}
+.pick-text { flex: 1; min-width: 0; }
+.pick-title { font-size: 16px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pick-sub { margin-top: 1px; font-size: 13px; color: var(--muted); direction: ltr; text-align: start; }
+.pick-check { flex: none; color: var(--accent); }
+.pick-row.sel .pick-title { color: var(--accent); }
+.pick-empty { text-align: center; color: var(--muted); padding: 30px 12px; }
+.pick-note { margin: 12px 8px 0; text-align: center; font-size: 13px; color: var(--muted); line-height: 1.4; }
+#pick-close { margin-top: 14px; flex: none; }
+.icon-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; padding: 16px 6px 12px; }
+.icon-opt {
+  appearance: none; border: 0; background: none; cursor: pointer;
+  font: inherit; color: var(--text);
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.icon-opt img { display: block; width: 76px; height: 76px; border-radius: 26px; transition: box-shadow .5s var(--ease-out), transform .4s var(--ease-out); }
+.icon-opt:active img { transform: scale(.94); }
+.icon-opt.on img { box-shadow: 0 0 0 3px var(--card), 0 0 0 6px var(--accent); }
+.icon-opt span { font-size: 13px; font-weight: 600; }
+.icon-opt.on span { color: var(--accent); }
+
+/* Языки справа налево (арабский, урду, фарси) */
+[dir="rtl"] .tab-dot { left: auto; right: 6px; transform: translateX(calc(var(--i) * -100%)); }
+[dir="rtl"] #btn-back svg, [dir="rtl"] .chev { transform: scaleX(-1); }
+#in-amount { direction: ltr; }
+[dir="rtl"] #in-amount { text-align: right; }
+.saved { unicode-bidi: isolate; }
 
 /* Нижнее меню — вытянутый стеклянный овал у нижнего края, активный раздел в капсуле */
 .tabbar {
